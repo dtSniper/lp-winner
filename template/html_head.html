@@ -1,0 +1,54 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    {{ \lpwinner\CSSLoader::addFA('solid') }}
+    {{ \lpwinner\CSSLoader::getPreload() }}
+
+    <style>
+        /*Font Awesome Free 5.10.0;fontawesome.com/license/free Icons:CC BY 4.0,Fonts: SIL OFL 1.1,Code:MIT License*/
+        @font-face {
+            font-weight: 900;
+            font-family: 'Font Awesome 5 Free';
+            font-style: normal;
+            src: url('/fonts/webfonts/fa-solid-900.eot');
+            src: url('/fonts/webfonts/fa-solid-900.eot?#iefix') format('embedded-opentype'), url('/fonts/webfonts/fa-solid-900.woff2') format('woff2'), url('/fonts/webfonts/fa-solid-900.woff') format('woff'), url('/fonts/webfonts/fa-solid-900.ttf') format('truetype'), url('/fonts/webfonts/fa-solid-900.svg#fontawesome') format('svg');
+            font-display: block
+        }
+
+        .fa,
+        .fas {
+            font-weight: 900;
+            font-family: 'Font Awesome 5 Free'
+        }
+    </style>
+    {{ \lpwinner\JSLoader::outputVars() }}
+
+
+    <!--<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">-->
+
+    {{ \lpwinner\CSSLoader::getCSS() }}
+
+    <link rel="preload" href="/css/spectre/spectre.min.css" as="style">
+    <link rel="preload" href="/css/spectre/spectre-exp.min.css" as="style">
+    <link rel="preload" href="/css/framework.css" as="style">
+    <link rel="preload" href="/css/new.css" as="style">
+    <link rel="preload" href="/css/responsive/default-res-small.css" as="style" media="only screen and (max-width:600px)">
+
+    <check if="{{ @FEATURES.MULTILANGUAGE && \mapban\Utility::isPathLocalized(@PATH, @ML->languages()) }}">
+        <repeat group="{{ @ML->languages() }}" value="{{ @language }}">
+            <link rel="alternate" hreflang="{{@language}}" href="{{@FULL_URL}}{{ \lpwinner\Utility::localizePath(@PATH, @ALIAS, @PARAMS, @ML, @language) }}" />
+        </repeat>
+        <link rel="alternate" hreflang="x-default" href="{{@FULL_URL}}{{ \lpwinner\Utility::getPathEx(\lpwinner\Utility::localizePath(@PATH, @ALIAS, @PARAMS, @ML, 'en'), @ML->languages()) }}" />
+    </check>
+
+    <title>
+        {{ \lpwinner\MetaData::getTitle() }}
+    </title>
+
+    {{ \lpwinner\MetaData::getMeta() }}
+</head>

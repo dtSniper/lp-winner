@@ -11,7 +11,7 @@ $f3->set( 'LOCALES', 'dict/' );
 if ($f3->get( "DEBUG" ) == 0) {
     $f3->set( 'ONERROR',
         function ($f3) {
-            $page = new \mapban\pages\ErrorHandler( $f3 );
+            $page = new \lpwinner\pages\ErrorHandler( $f3 );
             $page->handleError();
         }
     );
@@ -27,12 +27,13 @@ if (!$f3->get( "SESSION.csrf" )) {
     $f3->CSRF = $sess->csrf();
     $f3->copy( 'CSRF', 'SESSION.csrf' );
 }
+\lpwinner\JSLoader::addScriptConst( "csrfToken", $f3->get( 'SESSION.csrf' ) );
 
 /*
  * Base routes
  */
 
-$f3->route( "GET @home: /", function ($f3) {
+$f3->route( "GET|HEAD @home: /", function ($f3) {
     $f3->set( "content", Template::instance()->render( "template/main/home.html" ) );
     echo Template::instance()->render( "template/site.html" );
 } );
@@ -56,7 +57,6 @@ $f3->set( 'ONREROUTE', function ($url, $permanent) use ($f3, $ml) {
 //$f3->config( "include/globalRedirects.cfg" );
 
 \lpwinner\JSLoader::addScriptConst( "language", $ml->current );
-\lpwinner\JSLoader::setMatomoDimensionLanguage( $ml->displayLanguage( $ml->current ) );
 
 $f3->run();
 exit();

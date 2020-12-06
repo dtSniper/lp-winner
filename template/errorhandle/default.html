@@ -1,0 +1,16 @@
+{{ \mapban\MetaData::setPageTitle(@errormsg.title) }}
+{{ \mapban\MetaData::setDescription(@errorhandler.default.desc) }}
+{{ \mapban\MetaData::setRobots("noindex, nofollow") }}
+
+{{ \mapban\MetaData::setSocialTitle(@errormsg.title) }}
+{{ \mapban\MetaData::setSocialDescription(@errorhandler.default.desc) }}
+
+<div class="Error error--default mt-1r mx-1r mb-1r">
+    <div class="error__text text-center">
+        <h1>{{ @errorhandler.default.title,@ERROR.code | format}}</h1>
+        <h2>{{ @ERROR.status }}!</h2>
+        <p class="regular mb-1r">{{ @errorhandler.default.file,@errorfile | format,raw }}</p>
+    </div>
+</div>
+
+{{ \mapban\CSSLoader::addCSS('error.css') }}

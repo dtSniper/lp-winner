@@ -1,0 +1,16 @@
+{{ \mapban\MetaData::setPageTitle(@errorhandler.e404.title) }}
+{{ \mapban\MetaData::setDescription(@errorhandler.e404.desc) }}
+{{ \mapban\MetaData::setRobots("noindex, nofollow") }}
+
+{{ \mapban\MetaData::setSocialTitle(@errorhandler.e404.title) }}
+{{ \mapban\MetaData::setSocialDescription(@errorhandler.e404.desc) }}
+
+<div class="Error error--404 mt-1r mx-1r mb-1r">
+    <div class="error__text text-center">
+        <h1>{{@errorhandler.e404.title}}</h1>
+        <h2>{{@errorhandler.e404.cantFind, @SERVER.REQUEST_URI | format}}</h2>
+        <p class="regular">{{@errorhandler.e404.text | raw}}</p>
+    </div>
+</div>
+
+{{ \mapban\CSSLoader::addCSS('error.css') }}

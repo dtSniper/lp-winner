@@ -1,0 +1,16 @@
+{{ \mapban\MetaData::setPageTitle(@errorhandler.e500.title) }}
+{{ \mapban\MetaData::setDescription(@errorhandler.e500.desc) }}
+{{ \mapban\MetaData::setRobots("noindex, nofollow") }}
+
+{{ \mapban\MetaData::setSocialTitle(@errorhandler.e500.title) }}
+{{ \mapban\MetaData::setSocialDescription(@errorhandler.e500.desc) }}
+
+<div class="Error error--500 mt-1r mx-1r mb-1r">
+	<div class="error__text text-center">
+		<h1>{{ @errorhandler.e500.title }}</h1>
+		<h2>{{ @ERROR.status }}!</h2>
+		<p class="regular mb-1r">{{ @errorhandler.default.file,@errorfile | format,raw }}</p>
+	</div>
+</div>
+
+{{ \mapban\CSSLoader::addCSS('error.css') }}
