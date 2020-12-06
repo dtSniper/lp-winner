@@ -1,0 +1,21 @@
+{
+	"name": "lpwinner/web",
+	"version": "0.1",
+	"description": "Tool to notify Users once they won the Mltipick Giveaway",
+	"minimum-stability": "stable",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Sascha Wendt",
+			"email": "sw@zieh-fix.com"
+		}
+	],
+	"require": {
+		"bcosca/fatfree": "3.7.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"lpwinner\\": "classes"
+		}
+	}
+}

@@ -1,0 +1,8 @@
+/tmp/
+/.idea/
+Thumbs.db
+.idea
+/vendor/
+composer.phar
+.DS_Store
+config.cfg
