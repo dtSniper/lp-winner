@@ -38,6 +38,8 @@ $f3->route( "GET|HEAD @home: /", function ($f3) {
     echo Template::instance()->render( "template/site.html" );
 } );
 
+$f3->route( "POST /serials/add", "lpwinner\\pages\\MpSerials->addSerials" );
+
 
 /*
  * Multi Language

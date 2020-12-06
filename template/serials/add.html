@@ -1,0 +1,38 @@
+<form method="post" action="/{{@ML->current}}/serials/add" style="width: 70%; margin: auto;">
+    <label class="form-label">Email:
+        <input class="form-input" type="email" placeholder="email@domain.com" name="email">
+    </label>
+    <div id="serials" class="mb-1">
+        <span class="chip">
+            <input type="hidden" name="serials[]">
+              Biography
+              <a href="javascript:void(0)" onclick="$(this).parent().remove()" class="btn btn-clear" aria-label="Close"
+                 role="button"></a>
+        </span>
+        <span class="chip">
+            <input type="hidden" name="serials[]">
+            Biography2
+              <a href="javascript:void(0)" onclick="$(this).parent().remove()" class="btn btn-clear" aria-label="Close"
+                 role="button"></a>
+        </span>
+
+    </div>
+    <div class="input-group"><span class="input-group-addon addon-lg">Multipick Serial:</span>
+        <input class="form-input input-lg" type="text" placeholder="Serial number" id="newSerial">
+        <button class="btn btn-primary input-group-btn btn-lg" id="addSerialButton">add</button>
+    </div>
+    <label class="form-switch">
+        <input type="checkbox" name="dataProtection" required>
+        <i class="form-icon"></i> I agree to the Privacy Policy
+    </label>
+    <button type="submit" class="btn btn-primary">Notify me should I win!</button>
+</form>
+<div class="hide" id="chipHtml" style="display: none">
+    <span class="chip">
+        <input type="hidden" name="serials[]">
+          [[number]]
+          <a href="javascript:void(0)" onclick="$(this).parent().remove()" class="btn btn-clear" aria-label="Close" role="button"></a>
+    </span>
+</div>
+
+{{ \lpwinner\JSLoader::addScript('serials.js') }}

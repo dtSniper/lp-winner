@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="{{@ML->current}}">
 <include href="{{ 'template/html_head.html' }}"/>
-    <body>
-    {{ @content | RAW }}
+<body>
+<script src="/js/jquery-3.5.1.min.js"></script>
+{{ \lpwinner\JSLoader::outputScripts(@jsVersions) }}
+{{ @content | RAW }}
 
 
-        <link href="/fonts/fa/brands.css" rel="stylesheet">
-        <link href="/css/spectre/spectre.min.css" rel="stylesheet">
-        <link href="/css/spectre/spectre-exp.min.css" rel="stylesheet">
-        <link href="/css/framework.css" rel="stylesheet">
-    </body>
+<link href="/fonts/fa/brands.css" rel="stylesheet">
+<link href="/css/spectre/spectre.min.css" rel="stylesheet">
+<link href="/css/spectre/spectre-exp.min.css" rel="stylesheet">
+<link href="/css/framework.css" rel="stylesheet">
+</body>
 </html>
