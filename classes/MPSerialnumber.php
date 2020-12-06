@@ -9,7 +9,7 @@ namespace lpwinner;
 
 
 use lpwinner\exceptions\EmailBlacklistedException;
-use lpwinner\exceptions\InvalidEmailAdressException;
+use lpwinner\exceptions\InvalidEmailAddressException;
 
 class MPSerialnumber extends \DB\SQL\Mapper {
 
@@ -19,7 +19,7 @@ class MPSerialnumber extends \DB\SQL\Mapper {
 
     public static function addSerialsToEmail(string $address, array $serials): array {
         if (!filter_var( $address, FILTER_VALIDATE_EMAIL )) {
-            throw new InvalidEmailAdressException();
+            throw new InvalidEmailAddressException();
         }
         if (EmailBlacklist::isBlacklisted( $address )) {
             throw new EmailBlacklistedException();

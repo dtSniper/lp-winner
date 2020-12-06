@@ -34,10 +34,10 @@ if ($error != null) {
     $f3->set( "SESSION.error", null );
     $f3->set( "ERROR_MESSAGE", $error );
 }
-$message = $f3->get( "SESSION.message" );
-if ($message != null) {
-    $f3->set( "SESSION.message", null );
-    $f3->set( "MESSAGE", $message );
+$success = $f3->get( "SESSION.success" );
+if ($success != null) {
+    $f3->set( "SESSION.success", null );
+    $f3->set( "SUCCESS", $success );
 }
 
 /*

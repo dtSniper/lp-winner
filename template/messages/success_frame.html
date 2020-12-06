@@ -1,0 +1,5 @@
+<div class="toast toast-success m-2">
+    <button class="btn btn-clear float-right" onclick="$(this).parent().remove()"></button>
+    <div class="h3">{{@successmsg.title}} 👌</div>
+    <p class="msgframe__text">{{ @message | raw }}</p>
+</div>

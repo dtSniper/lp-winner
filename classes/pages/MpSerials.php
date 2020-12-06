@@ -17,16 +17,17 @@ class MpSerials extends Pages {
     }
 
     public function addSerials($f3) {
-        $email = $this->getPostString("email");
-        $serials = $this->getPostArray("serials", "intval", true, true);
+        $email   = $this->getPostString( "email" );
+        $serials = $this->getPostArray( "serials", "intval", true, true );
 
         try {
             $array = MPSerialnumber::addSerialsToEmail( $email, $serials );
             $int   = count( $array );
-            echo "We added $int Serialnumbers to your email. Please check for the confirmation email you should have received.";
+            $this->addStandardSuccess( "newSerialsAdded", array($int) );
+            $this->rerouteBack( "@home" );
         }
         catch (\lpwinner\exceptions\LpwinnerException $exception) {
-            $this->f3->set( "SESSION.error", $exception->getError() );
+            $this->addStandardError( $exception->getError() );
             $this->rerouteBack( "@home" );
             return;
         }
