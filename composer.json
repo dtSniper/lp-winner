@@ -1,7 +1,7 @@
 {
 	"name": "lpwinner/web",
 	"version": "0.1",
-	"description": "Tool to notify Users once they won the Mltipick Giveaway",
+	"description": "Tool to notify Users once they won the Multipick Giveaway",
 	"minimum-stability": "stable",
 	"license": "proprietary",
 	"authors": [
@@ -15,7 +15,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"lpwinner\\": "classes"
+			"lpwinner\\": "classes",
+			"thirdparty\\": "classes/thirdparty"
 		}
 	}
 }
