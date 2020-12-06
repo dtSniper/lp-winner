@@ -4,6 +4,10 @@
 <body>
 <script src="/js/jquery-3.5.1.min.js"></script>
 {{ \lpwinner\JSLoader::outputScripts(@jsVersions) }}
+
+
+<include if="{{ @ERROR_MESSAGE }}" href="{{ 'template/error/'.@ERROR_MESSAGE.'.html' }}" />
+<include if="{{ @MESSAGE }}" href="{{ 'template/message/'.@MESSAGE.'.html' }}" />
 {{ @content | RAW }}
 
 

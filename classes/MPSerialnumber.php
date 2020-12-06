@@ -11,27 +11,34 @@ namespace lpwinner;
 use lpwinner\exceptions\EmailBlacklistedException;
 use lpwinner\exceptions\InvalidEmailAdressException;
 
-class mp_serialnumber extends \DB\SQL\Mapper {
+class MPSerialnumber extends \DB\SQL\Mapper {
 
     public function __construct(\Base $f3) {
         parent::__construct( $f3->get( "DB" ), 'mp_serialnumbers' );
     }
 
-    public static function addSerialToEmail(string $address, string $serial): mp_serialnumber {
+    public static function addSerialsToEmail(string $address, array $serials): array {
         if (!filter_var( $address, FILTER_VALIDATE_EMAIL )) {
             throw new InvalidEmailAdressException();
         }
         if (EmailBlacklist::isBlacklisted( $address )) {
             throw new EmailBlacklistedException();
         }
+        $array = [];
+        if(count($serials) === 0) {
+            return $array;
+        }
         $f3  = \Base::instance();
         $mps = new self( $f3 );
-        if (!$mps->load( array("email = ? AND serial = ?", $address, $serial) )) {
-            $mps->email  = $address;
-            $mps->serial = $serial;
-            $mps->save();
+        foreach ($serials as $serial) {
+            if (!$mps->load( array("email = ? AND serial = ?", $address, $serial) )) {
+                $mps->email  = $address;
+                $mps->serial = $serial;
+                $mps->save();
+                $array[] = $serial;;
+            }
         }
-        return $mps;
+        return $array;
     }
 
 }

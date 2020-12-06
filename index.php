@@ -29,6 +29,17 @@ if (!$f3->get( "SESSION.csrf" )) {
 }
 \lpwinner\JSLoader::addScriptConst( "csrfToken", $f3->get( 'SESSION.csrf' ) );
 
+$error = $f3->get( "SESSION.error" );
+if ($error != null) {
+    $f3->set( "SESSION.error", null );
+    $f3->set( "ERROR_MESSAGE", $error );
+}
+$message = $f3->get( "SESSION.message" );
+if ($message != null) {
+    $f3->set( "SESSION.message", null );
+    $f3->set( "MESSAGE", $message );
+}
+
 /*
  * Base routes
  */

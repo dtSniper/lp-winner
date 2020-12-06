@@ -4,7 +4,7 @@
     </label>
     <div id="serials" class="mb-1"></div>
     <div class="input-group"><span class="input-group-addon addon-lg">Multipick Serial:</span>
-        <input class="form-input input-lg" type="text" placeholder="Serial number" id="newSerial">
+        <input class="form-input input-lg" type="number" placeholder="Serial number" id="newSerial">
         <button class="btn btn-primary input-group-btn btn-lg" id="addSerialButton">add</button>
     </div>
     <label class="form-switch">
@@ -15,7 +15,7 @@
 </form>
 <div class="hide" id="chipHtml" style="display: none">
     <span class="chip">
-        <input type="hidden" name="serials[]">
+        <input type="hidden" name="serials[]" value="[[number]]">
           [[number]]
           <a href="javascript:void(0)" onclick="$(this).parent().remove()" class="btn btn-clear" aria-label="Close" role="button"></a>
     </span>

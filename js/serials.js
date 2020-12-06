@@ -1,6 +1,7 @@
 $('#newSerial').on('keypress', function (e) {
     var keyCode = e.keyCode || e.which;
-    if (keyCode === 13) {
+    console.log(keyCode);
+    if (keyCode === 13 || keyCode === 32 || keyCode === 44) {
         e.preventDefault();
         addNewSerial();
         return false;
