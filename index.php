@@ -2,20 +2,20 @@
 require_once('vendor/autoload.php');
 include_once('initiateScript.php');
 
-$f3->set( 'DEBUG', 3 );
+$f3->set( 'DEBUG', 0 );
 $f3->set( 'LOCALES', 'dict/' );
 
 /*
  * Error Handler
  */
-if ($f3->get( "DEBUG" ) == 0) {
-    $f3->set( 'ONERROR',
-        function ($f3) {
-            $page = new \lpwinner\pages\ErrorHandler( $f3 );
-            $page->handleError();
-        }
-    );
-}
+//if ($f3->get( "DEBUG" ) == 0) {
+//    $f3->set( 'ONERROR',
+//        function ($f3) {
+//            $page = new \lpwinner\pages\ErrorHandler( $f3 );
+//            $page->handleError();
+//        }
+//    );
+//}
 
 /*
  * Session
