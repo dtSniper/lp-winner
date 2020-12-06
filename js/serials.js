@@ -20,4 +20,17 @@ function addNewSerial() {
     html = html.replace(/\[\[number\]\]/g, serial);
     $('#serials').append(html);
     $('#newSerial').val('');
+    $('#newSerial').parent().removeClass('has-error');
 }
+
+$(document)
+    .ready(function () {
+        $("form#serialAdd")
+            .submit(function (event) {
+                if ($('form input[name="serials[]"]').length === 0) {
+                    event.preventDefault();
+                    $('#newSerial').parent().addClass('has-error');
+                    return false;
+                }
+            });
+    });
