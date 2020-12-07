@@ -45,9 +45,20 @@ if ($success != null) {
  */
 
 $f3->route( "GET|HEAD @home: /", function ($f3) {
-    $f3->set( "content", Template::instance()->render( "template/main/home.html" ) );
+    $f3->set( "content", \Template::instance()->render( "template/main/home.html" ) );
     echo Template::instance()->render( "template/site.html" );
 } );
+
+$f3->route( "GET|HEAD @imprint: /imprint", function ($f3) {
+    $f3->set( "content", Template::instance()->render( "template/main/imprint.html" ) );
+    echo Template::instance()->render( "template/site.html" );
+} );
+
+$f3->route( "GET|HEAD @privacy: /privacy", function ($f3) {
+    $f3->set( "content", Template::instance()->render( "template/main/privacy.html" ) );
+    echo Template::instance()->render( "template/site.html" );
+} );
+
 
 $f3->route( "POST /serials/add", "lpwinner\\pages\\MpSerials->addSerials" );
 

@@ -1,0 +1,31 @@
+<header class="navbar p-2">
+    <section class="navbar-section">
+        <a href="javascript:void(0)" onclick="$('#modal-language').addClass('active')" class="btn btn-link"><i class="fas fa-language"></i></a>
+        <a href="{{ 'home' | alias }}" class="btn btn-link">{{@site.home}}</a>
+    </section>
+    <section class="navbar-center">
+        <!-- centered logo or brand -->
+        <i class="fas fa-trophy"></i><span class="hide-sm">&nbsp;Lockpick Winner</span>
+    </section>
+    <section class="navbar-section">
+        <a href="{{ 'privacy' | alias }}" class="btn btn-link">{{@site.privacy}}</a>
+        <a href="{{ 'imprint' | alias }}" class="btn btn-link">{{@site.imprint}}</a>
+    </section>
+</header>
+
+<div class="modal" id="modal-language">
+    <a href="javascript:void(0)" onclick="$('#modal-language').removeClass('active')" class="modal-overlay" aria-label="Close"></a>
+    <div class="modal-container">
+        <div class="modal-header">
+            <a href="javascript:void(0)" onclick="$('#modal-language').removeClass('active')"  class="btn btn-clear float-right" aria-label="Close"></a>
+            <div class="modal-title h5">{{@site.languages}}</div>
+        </div>
+        <div class="modal-body text-center">
+            <repeat group="{{ @ML->languages() }}" value="{{ @language }}">
+                <check if="{{ @language != @ML->current}}">
+                    <a href="{{ \lpwinner\Utility::localizePath(@PATH, @ALIAS, @PARAMS, @ML, @language) }}" class="btn btn-primary" style="width: 90%;">{{@ML->displayLanguage(@language)}}</a>
+                </check>
+            </repeat>
+        </div>
+    </div>
+</div>
