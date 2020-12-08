@@ -1,17 +1,17 @@
 <form method="post" id="serialAdd" action="/{{@ML->current}}/serials/add">
-    <label class="form-label">Email:
+    <label class="form-label">{{@site.email}}:
         <input class="form-input" type="email" placeholder="email@domain.com" name="email" required>
     </label>
     <div id="serials" class="mb-1"></div>
-    <div class="input-group"><span class="input-group-addon addon-lg">Multipick Serial:</span>
+    <div class="input-group"><span class="input-group-addon addon-lg">{{@site.serials.mpSerial}}:</span>
         <input class="form-input input-lg" type="number" placeholder="Serial number" id="newSerial">
-        <button class="btn btn-primary input-group-btn btn-lg" id="addSerialButton">add</button>
+        <button class="btn btn-primary input-group-btn btn-lg" id="addSerialButton">{{@site.serials.add}}</button>
     </div>
     <label class="form-switch">
         <input type="checkbox" name="dataProtection" required>
-        <i class="form-icon"></i> I agree to the Privacy Policy
+        <i class="form-icon"></i> {{@site.serials.privacy,@ML->alias('privacy') | format,raw}}
     </label>
-    <button type="submit" class="btn btn-primary">Notify me should I win!</button>
+    <button type="submit" class="btn btn-primary">{{@site.serials.button}}</button>
 </form>
 <div class="hide" id="chipHtml" style="display: none">
     <span class="chip">

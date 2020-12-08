@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{ @email.blacklistValid.subject }}</title>
+</head>
+
+<body>
+<p>{{ @email.blacklistValid.newBlacklist }}</p>
+<p><a href="{{@FULL_URL}}/blacklist/validate/{{@blacklistKey}}">{{@FULL_URL}}/blacklist/validate/{{@blacklistKey}}</a> </p>
+<p>{{ @email.blacklistValid.ignore }}</p>
+</body>
+</html>

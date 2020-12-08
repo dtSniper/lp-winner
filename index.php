@@ -50,17 +50,18 @@ $f3->route( "GET|HEAD @home: /", function ($f3) {
 } );
 
 $f3->route( "GET|HEAD @imprint: /imprint", function ($f3) {
-    $f3->set( "content", Template::instance()->render( "template/main/imprint.html" ) );
-    echo Template::instance()->render( "template/site.html" );
+    header( "Location: https://challenge-lock.com/imprint/" );
 } );
 
 $f3->route( "GET|HEAD @privacy: /privacy", function ($f3) {
-    $f3->set( "content", Template::instance()->render( "template/main/privacy.html" ) );
-    echo Template::instance()->render( "template/site.html" );
+    header( "Location: https://challenge-lock.com/1100-2/" );
 } );
 
 
 $f3->route( "POST /serials/add", "lpwinner\\pages\\MpSerials->addSerials" );
+$f3->route( "GET|HEAD @blacklist: /blacklist", "lpwinner\\pages\\Blacklist->addForm" );
+$f3->route( "POST /blacklist", "lpwinner\\pages\\Blacklist->addBlacklist" );
+$f3->route( "GET|HEAD @blacklistValidate: /blacklist/validate/@key", "lpwinner\\pages\\Blacklist->validateBlacklist" );
 
 
 /*

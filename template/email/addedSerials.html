@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{ @email.addedSerials.subject }}</title>
+</head>
+
+<body>
+    <p>{{ @email.addedSerials.amount,count(@numbers) | format }}</p>
+    <p>{{ @email.addedSerials.list }}:
+        <ul>
+            <repeat group="{{@numbers}}" value="{{@number}}">
+                <li>{{@number}}</li>
+            </repeat>
+        </ul>
+    </p>
+    <p>{{ @email.addedSerials.disclaimer }}</p>
+    <p>{{ @email.addedSerials.blacklist,@FULL_URL,@ML->alias('blacklist') | format,raw }}</p>
+</body>
+</html>

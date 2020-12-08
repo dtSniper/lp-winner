@@ -9,7 +9,7 @@ namespace lpwinner;
 
 
 class MetaData {
-    public static $title = "domain.com";
+    public static $title = "Lockpick Winner";
     public static $pageTitle = "";
     public static $keywords = "";
     public static $description = "";

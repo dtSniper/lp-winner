@@ -25,7 +25,7 @@ class MPSerialnumber extends \DB\SQL\Mapper {
             throw new EmailBlacklistedException();
         }
         $array = [];
-        if(count($serials) === 0) {
+        if (count( $serials ) === 0) {
             return $array;
         }
         $f3  = \Base::instance();
@@ -38,7 +38,23 @@ class MPSerialnumber extends \DB\SQL\Mapper {
                 $array[] = $serial;;
             }
         }
+        if (count( $array ) !== 0) {
+            $f3->set( "numbers", $array );
+            $textToBeSend = \Template::instance()->render( "template/email/addedSerials.html" );
+            \lpwinner\Utility::sendEmail( $f3, $f3->get( "MAIL_TO" ), '"Lockpick Winner" <' . $f3->get( "MAIL_TO" ) . '>', $address, $address, $f3->get( "email.addedSerials.subject" ), $textToBeSend );
+        }
         return $array;
+    }
+
+    public static function removeAddress(string $address): bool {
+        $mps = new self( \Base::instance() );
+        if (!$mps->load( array("email = ?", $address) )) {
+            return false;
+        }
+        foreach ($mps->query as $entry) {
+            $entry->erase();
+        }
+        return true;
     }
 
 }

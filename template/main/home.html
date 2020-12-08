@@ -1,2 +1,10 @@
-Home!<br>
+{{ \lpwinner\MetaData::setPageTitle(@site.home.title) }}
+{{ \lpwinner\MetaData::setDescription(@site.home.pageDesc) }}
+{{ \lpwinner\MetaData::addKeywords("Multipick Giveaway, Multipick Raffle") }}
+
+{{ \lpwinner\MetaData::setSocialTitle(@site.home.title) }}
+{{ \lpwinner\MetaData::setSocialDescription(@site.home.pageDesc) }}
+
+<h1 class="text-center">{{@site.home.title}}</h1>
+<p>{{@site.home.pageDesc}}</p>
 <include href="{{ 'template/serials/add.html' }}"/>

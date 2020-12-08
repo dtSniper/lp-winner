@@ -7,6 +7,9 @@
 
 namespace lpwinner;
 
+use lpwinner\exceptions\EmailBlacklistedException;
+use lpwinner\exceptions\InvalidEmailAddressException;
+
 class EmailBlacklist extends \DB\SQL\Mapper {
 
     public function __construct(\Base $f3) {
@@ -15,11 +18,11 @@ class EmailBlacklist extends \DB\SQL\Mapper {
 
     public static function isBlacklisted(string $address): bool {
         if (!filter_var( $address, FILTER_VALIDATE_EMAIL )) {
-            throw new InvalidEmailAdressException();
+            throw new InvalidEmailAddressException();
         }
         $f3        = \Base::instance();
         $blacklist = new self( $f3 );
-        if (!$blacklist->load( array("address = ?", $address) )) {
+        if (!$blacklist->load( array("address = ? AND validation_key IS NULL", $address) )) {
             return false;
         }
         return true;
@@ -27,15 +30,35 @@ class EmailBlacklist extends \DB\SQL\Mapper {
 
     public static function addToBlacklist(string $address): bool {
         if (!filter_var( $address, FILTER_VALIDATE_EMAIL )) {
-            throw new InvalidEmailAdressException();
+            throw new InvalidEmailAddressException();
         }
         if (self::isBlacklisted( $address )) {
+            throw new EmailBlacklistedException();
+        }
+        $f3        = \Base::instance();
+        $blacklist = new self( $f3 );
+        $blacklist->load( array("address = ? AND validation_key IS NOT NULL", $address) );
+        $blacklist->address        = $address;
+        $blacklist->validation_key = Utility::generateID( 32 );
+        $blacklist->keytime        = time();
+        $blacklist->save();
+
+        $f3->set( "blacklistKey", $blacklist->validation_key );
+        echo \Template::instance()->render( "template/email/blacklistValidation.html" );
+        $textToBeSend = \Template::instance()->render( "template/email/blacklistValidation.html" );
+        \lpwinner\Utility::sendEmail( $f3, $f3->get( "MAIL_TO" ), '"Lockpick Winner" <' . $f3->get( "MAIL_TO" ) . '>', $address, $address, $f3->get( "email.blacklistValid.subject" ), $textToBeSend );
+        return true;
+    }
+
+    public static function validate(string $key): bool {
+        $f3        = \Base::instance();
+        $blacklist = new self( $f3 );
+        if (!$blacklist->load( array("validation_key = ? AND keytime >= ?", $key, time() - 1800) )) {
             return false;
         }
-        $f3             = \Base::instance();
-        $email          = new self( $f3 );
-        $email->address = $address;
-        $email->save();
+        $blacklist->validation_key = null;
+        $blacklist->save();
+        MPSerialnumber::removeAddress( $blacklist->address );
         return true;
     }
 
