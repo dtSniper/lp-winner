@@ -2,7 +2,7 @@
 require_once('vendor/autoload.php');
 include_once('initiateScript.php');
 
-$f3->set( 'DEBUG', 0 );
+$f3->set( 'DEBUG', 3 );
 $f3->set( 'LOCALES', 'dict/' );
 
 /*
@@ -64,10 +64,22 @@ $f3->route( "POST /blacklist", "lpwinner\\pages\\Blacklist->addBlacklist" );
 $f3->route( "GET|HEAD @blacklistValidate: /blacklist/validate/@key", "lpwinner\\pages\\Blacklist->validateBlacklist" );
 
 
+//ADMIN
+$f3->route( "GET|HEAD @admin: /" . $f3->get( "ADMINURL" ), "lpwinner\\pages\\Admin->dashboard" );
+$f3->route( "GET|HEAD|POST @adminLogin: /" . $f3->get( "ADMINURL" ) . "/login", "lpwinner\\pages\\Admin->login" );
+$f3->route( "GET|HEAD @adminLogout: /" . $f3->get( "ADMINURL" ) . "/logout", "lpwinner\\pages\\Admin->logout" );
+
+
 /*
  * Multi Language
  */
 $f3->config( "include/multilang.cfg" );
+$mlglobans   = $f3->get( "MULTILANG.global" );
+$mlglobans[] = $f3->get( "ADMINURL" );
+$f3->set( "MULTILANG.global", $mlglobans );
+$mlglobans   = $f3->get( "excludedRedirects" );
+$mlglobans[] = '/' . $f3->get( "ADMINURL" );
+$f3->set( "MULTILANG.global", $mlglobans );
 $ml = \thirdparty\ExtendedMultilang::instance( "ML" );
 $f3->set( 'ML', $ml );
 $f3->set( 'ONREROUTE', function ($url, $permanent) use ($f3, $ml) {

@@ -7,12 +7,12 @@
     <include href="{{ 'template/navigation.html' }}" />
 
     <main class="content-full px-1r py-2">
-    <check if="{{ @ERROR_MESSAGE }}">
+    <check if="{{ is_array(@ERROR_MESSAGE) }}">
         <repeat group="{{ @ERROR_MESSAGE }}" value="{{ @message }}">
             <include href="{{ 'template/messages/error_frame.html' }}" />
         </repeat>
     </check>
-    <check if="{{ @SUCCESS }}">
+    <check if="{{ is_array(@SUCCESS) }}">
         <repeat group="{{ @SUCCESS }}" value="{{ @message }}">
             <include href="{{ 'template/messages/success_frame.html' }}" />
         </repeat>

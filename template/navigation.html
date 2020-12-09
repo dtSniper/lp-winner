@@ -1,6 +1,6 @@
 <header class="navbar p-2">
     <section class="navbar-section">
-        <a href="javascript:void(0)" onclick="$('#modal-language').addClass('active')" class="btn btn-link"><i class="fas fa-language"></i></a>
+        <check if="{{\lpwinner\Utility::isPathLocalized(@PATH, @ML->languages())}}"><a href="javascript:void(0)" onclick="$('#modal-language').addClass('active')" class="btn btn-link"><i class="fas fa-language"></i></a></check>
         <a href="{{ 'home' | alias }}" class="btn btn-link">{{@site.homeNav}}</a>
     </section>
     <section class="navbar-center">
@@ -13,19 +13,21 @@
     </section>
 </header>
 
-<div class="modal" id="modal-language">
-    <a href="javascript:void(0)" onclick="$('#modal-language').removeClass('active')" class="modal-overlay" aria-label="Close"></a>
-    <div class="modal-container">
-        <div class="modal-header">
-            <a href="javascript:void(0)" onclick="$('#modal-language').removeClass('active')"  class="btn btn-clear float-right" aria-label="Close"></a>
-            <div class="modal-title h5">{{@site.languages}}</div>
-        </div>
-        <div class="modal-body text-center">
-            <repeat group="{{ @ML->languages() }}" value="{{ @language }}">
-                <check if="{{ @language != @ML->current}}">
-                    <a href="{{ \lpwinner\Utility::localizePath(@PATH, @ALIAS, @PARAMS, @ML, @language) }}" class="btn btn-primary" style="width: 90%;">{{@ML->displayLanguage(@language)}}</a>
-                </check>
-            </repeat>
+<check if="{{\lpwinner\Utility::isPathLocalized(@PATH, @ML->languages())}}">
+    <div class="modal" id="modal-language">
+        <a href="javascript:void(0)" onclick="$('#modal-language').removeClass('active')" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+            <div class="modal-header">
+                <a href="javascript:void(0)" onclick="$('#modal-language').removeClass('active')"  class="btn btn-clear float-right" aria-label="Close"></a>
+                <div class="modal-title h5">{{@site.languages}}</div>
+            </div>
+            <div class="modal-body text-center">
+                <repeat group="{{ @ML->languages() }}" value="{{ @language }}">
+                    <check if="{{ @language != @ML->current}}">
+                        <a href="{{ \lpwinner\Utility::localizePath(@PATH, @ALIAS, @PARAMS, @ML, @language) }}" class="btn btn-primary" style="width: 90%;">{{@ML->displayLanguage(@language)}}</a>
+                    </check>
+                </repeat>
+            </div>
         </div>
     </div>
-</div>
+</check>

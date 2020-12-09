@@ -22,10 +22,14 @@ class EmailBlacklist extends \DB\SQL\Mapper {
         }
         $f3        = \Base::instance();
         $blacklist = new self( $f3 );
-        if (!$blacklist->load( array("address = ? AND validation_key IS NULL", $address) )) {
+        if (!$blacklist->load( array("address = ? AND validation_key IS NULL", self::hashEmail( $address )) )) {
             return false;
         }
         return true;
+    }
+
+    private static function hashEmail(string $address): string {
+        return hash( "sha256", $address );
     }
 
     public static function addToBlacklist(string $address): bool {
@@ -56,9 +60,10 @@ class EmailBlacklist extends \DB\SQL\Mapper {
         if (!$blacklist->load( array("validation_key = ? AND keytime >= ?", $key, time() - 1800) )) {
             return false;
         }
-        $blacklist->validation_key = null;
-        $blacklist->save();
         MPSerialnumber::removeAddress( $blacklist->address );
+        $blacklist->validation_key = null;
+        $blacklist->address        = self::hashEmail( $blacklist->address );
+        $blacklist->save();
         return true;
     }
 
