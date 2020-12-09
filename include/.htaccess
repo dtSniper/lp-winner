@@ -1,0 +1,4 @@
+#don't allow access from outside!
+<Files "*">
+    Require local
+</Directory>
