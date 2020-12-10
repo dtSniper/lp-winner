@@ -1,9 +1,9 @@
 <h1 class="text-center">Blacklist Search:</h1>
 <p class="text-center">Enter the email address (sensitive), you want to check.</p>
 <form method="post">
-    <label class="form-label">Email:
-        <input type="text" name="email" placeholder="test@domain.com" value="{{@POST.email}}" class="form-input">
-    </label>
+    <div class="input-group">
+        <input type="email" name="email" placeholder="email address" value="{{@POST.email}}" class="form-input" required>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
     <input type="hidden" name="csrfToken" value="{{@SESSION.csrf}}">
-    <button type="submit" class="btn btn-primary">Search</button>
 </form>
