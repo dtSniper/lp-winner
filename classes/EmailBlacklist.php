@@ -17,25 +17,31 @@ class EmailBlacklist extends \DB\SQL\Mapper {
     }
 
     public static function isBlacklisted(string $address): bool {
+        return self::getEntry( $address ) !== null;
+    }
+
+    private static function hashEmail(string $address): string {
+        $address = strtolower( $address );
+        return hash( "sha256", $address );
+    }
+
+    public static function getEntry(string $address) {
         if (!filter_var( $address, FILTER_VALIDATE_EMAIL )) {
             throw new InvalidEmailAddressException();
         }
         $f3        = \Base::instance();
         $blacklist = new self( $f3 );
         if (!$blacklist->load( array("address = ? AND validation_key IS NULL", self::hashEmail( $address )) )) {
-            return false;
+            return null;
         }
-        return true;
-    }
-
-    private static function hashEmail(string $address): string {
-        return hash( "sha256", $address );
+        return $blacklist;
     }
 
     public static function addToBlacklist(string $address): bool {
         if (!filter_var( $address, FILTER_VALIDATE_EMAIL )) {
             throw new InvalidEmailAddressException();
         }
+        $address = strtolower( $address );
         if (self::isBlacklisted( $address )) {
             throw new EmailBlacklistedException();
         }

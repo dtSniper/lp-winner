@@ -8,6 +8,9 @@
 namespace lpwinner\pages;
 
 
+use lpwinner\EmailBlacklist;
+use lpwinner\MPSerialnumber;
+
 class Admin extends SecuredPages {
     public function __construct(\Base $f3, $loginReroute = "@login") {
         parent::__construct( $f3, array("/" . $f3->get( 'ADMINURL' ) . "/login"), array("@adminLogin"), "@adminLogin" );
@@ -18,6 +21,11 @@ class Admin extends SecuredPages {
     }
 
     public function dashboard(\Base $f3) {
+        $mps = new MPSerialnumber($f3);
+        $bl = new EmailBlacklist($f3);
+        $f3->set( "mpsCount", $mps->count() );
+        $f3->set( "blCount", $bl->count(array("validation_key IS NULL")) );
+        $f3->set( "content", \Template::instance()->render( "template/admin/dashboard.html" ) );
         echo \Template::instance()->render( "template/site.html" );
     }
 
@@ -27,6 +35,7 @@ class Admin extends SecuredPages {
             return;
         }
         if ($f3->exists( "POST.username" )) {
+            if(!$this->checkCSRF("@adminLogin")) return;
             $user     = $this->getPostString( "username" );
             $password = $this->getPostString( "password" );
             if ($f3->exists( "ADMINS.$user" )) {
@@ -45,7 +54,51 @@ class Admin extends SecuredPages {
     }
 
     public function logout(\Base $f3) {
+        if(!$this->checkCSRF("@admin")) return;
         $this->f3->clear( "SESSION.admin" );
         $this->f3->reroute( "@adminLogin" );
+    }
+
+    public function blacklist(\Base $f3) {
+        if ($f3->exists( "POST.email" )) {
+            if(!$this->checkCSRF("@adminBlacklist")) return;
+            try {
+                $address = $this->getPostString( "email" );
+                $address = strtolower( $address );
+                $entry = EmailBlacklist::getEntry( $address );
+                if ($entry == null) {
+                    $f3->set( "ERROR_MESSAGE", array("No Blacklist Entry for this email found!") );
+                }
+                else {
+                    $f3->set("entry", $entry);
+                }
+            }
+            catch (\lpwinner\exceptions\LpwinnerException $exception) {
+                $f3->set( "ERROR_MESSAGE", array($exception->getMessage()) );
+            }
+        }
+        $f3->set( "content", \Template::instance()->render( "template/admin/blacklist/index.html" ) );
+        echo \Template::instance()->render( "template/site.html" );
+    }
+
+    public function removeBlacklist(\Base $f3) {
+        if(!$this->checkCSRF("@adminBlacklist")) return;
+        try {
+            $address = $this->getPostString( "address" );
+            $address = strtolower( $address );
+            $entry   = EmailBlacklist::getEntry( $address );
+            if($entry === null) {
+                $this->addStandardError( "tryAgain" );
+                $this->f3->reroute( "@adminBlacklist" );
+                return;
+            }
+            $entry->erase();
+            $this->addSuccess("Blacklist entry removed!");
+            $this->f3->reroute( "@adminBlacklist" );
+        }
+        catch (\lpwinner\exceptions\LpwinnerException $exception) {
+            $this->addStandardError( $exception->getError() );
+            $this->f3->reroute( "@adminBlacklist" );
+        }
     }
 }

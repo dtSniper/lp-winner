@@ -3,6 +3,7 @@
 <include href="{{ 'template/html_head.html' }}"/>
 <body class="container-fluid off-canvas">
     <script src="/js/jquery-3.5.1.min.js"></script>
+    {{ \lpwinner\JSLoader::addScript('main.js') }}
     {{ \lpwinner\JSLoader::outputScripts(@jsVersions) }}
     <include href="{{ 'template/navigation.html' }}" />
 

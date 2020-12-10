@@ -67,8 +67,9 @@ $f3->route( "GET|HEAD @blacklistValidate: /blacklist/validate/@key", "lpwinner\\
 //ADMIN
 $f3->route( "GET|HEAD @admin: /" . $f3->get( "ADMINURL" ), "lpwinner\\pages\\Admin->dashboard" );
 $f3->route( "GET|HEAD|POST @adminLogin: /" . $f3->get( "ADMINURL" ) . "/login", "lpwinner\\pages\\Admin->login" );
-$f3->route( "GET|HEAD @adminLogout: /" . $f3->get( "ADMINURL" ) . "/logout", "lpwinner\\pages\\Admin->logout" );
-
+$f3->route( "POST @adminLogout: /" . $f3->get( "ADMINURL" ) . "/logout", "lpwinner\\pages\\Admin->logout" );
+$f3->route( "GET|HEAD|POST @adminBlacklist: /" . $f3->get( "ADMINURL" ) . "/blacklist", "lpwinner\\pages\\Admin->blacklist" );
+$f3->route( "POST /" . $f3->get( "ADMINURL" ) . "/blacklist/remove", "lpwinner\\pages\\Admin->removeBlacklist" );
 
 /*
  * Multi Language

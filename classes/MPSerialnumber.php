@@ -21,6 +21,7 @@ class MPSerialnumber extends \DB\SQL\Mapper {
         if (!filter_var( $address, FILTER_VALIDATE_EMAIL )) {
             throw new InvalidEmailAddressException();
         }
+        $address = strtolower( $address );
         if (EmailBlacklist::isBlacklisted( $address )) {
             throw new EmailBlacklistedException();
         }
@@ -47,7 +48,8 @@ class MPSerialnumber extends \DB\SQL\Mapper {
     }
 
     public static function removeAddress(string $address): bool {
-        $mps = new self( \Base::instance() );
+        $address = strtolower( $address );
+        $mps     = new self( \Base::instance() );
         if (!$mps->load( array("email = ?", $address) )) {
             return false;
         }

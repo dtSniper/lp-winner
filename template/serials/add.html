@@ -11,6 +11,7 @@
         <input type="checkbox" name="dataProtection" required>
         <i class="form-icon"></i> {{@site.serials.privacy,@ML->alias('privacy') | format,raw}}
     </label>
+    <input type="hidden" name="csrfToken" value="{{@SESSION.csrf}}">
     <button type="submit" class="btn btn-primary">{{@site.serials.button}}</button>
 </form>
 <div class="hide" id="chipHtml" style="display: none">

@@ -22,6 +22,7 @@ class Blacklist extends Pages {
     }
 
     public function addBlacklist($f3) {
+        if(!$this->checkCSRF("@blacklist")) return;
         $email   = $this->getPostString( "email" );
         try {
             EmailBlacklist::addToBlacklist( $email );

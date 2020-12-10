@@ -21,15 +21,23 @@ abstract class Pages {
         return \lpwinner\Utility::getPath( $this->f3, $ignoreLanguage );
     }
 
-    public function checkCSRF() {
+    public function checkCSRF($reroute = "@home"): bool {
         if (!$this->f3->exists( 'POST.csrfToken' ) || !$this->f3->exists( 'SESSION.csrf' )) {
-            throw new \lpwinner\exceptions\CSRFException( "Session Error! Try reloading the website!" );
+            $this->csrfError( $reroute );
+            return false;
         }
         $csrfToken = $this->f3->get( 'POST.csrfToken' );
         $csrf      = $this->f3->get( 'SESSION.csrf' );
         if (empty( $csrfToken ) || empty( $csrf ) || $csrfToken != $csrf) {
-            throw new \lpwinner\exceptions\CSRFException( "Session Error! Try reloading the website!" );
+            $this->csrfError( $reroute );
+            return false;
         }
+        return true;
+    }
+
+    private function csrfError($reroute = "@home") {
+        $this->addStandardError( "tryAgain" );
+        $this->f3->reroute( $reroute );
     }
 
     public function rerouteBack($fallback) {

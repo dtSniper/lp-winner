@@ -2,5 +2,6 @@
     <label class="form-label">{{@site.email}}:
         <input class="form-input" type="email" placeholder="email@domain.com" name="email" required>
     </label>
+    <input type="hidden" name="csrfToken" value="{{@SESSION.csrf}}">
     <button type="submit" class="btn btn-primary">{{@site.submit}}</button>
 </form>

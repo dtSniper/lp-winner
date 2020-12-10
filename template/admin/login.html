@@ -6,5 +6,6 @@
     <label class="form-label">Password:
         <input type="password" name="password" placeholder="YourSecret" class="form-input">
     </label>
+    <input type="hidden" name="csrfToken" value="{{@SESSION.csrf}}">
     <button type="submit" class="btn btn-primary">Login</button>
 </form>

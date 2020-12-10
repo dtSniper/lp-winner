@@ -1,0 +1,30 @@
+<ul class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/{{@ADMINURL}}">Admin Dashboard</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ @PATH }}">Blacklist</a>
+    </li>
+</ul>
+<include href="{{ 'template/admin/blacklist/search.html' }}"/>
+
+<check if="{{@entry}}">
+    <div class="card mt-2">
+        <div class="card-header">
+            <div class="card-title h5">{{strtolower(@POST.email)}}</div>
+            <div class="card-subtitle text-gray">{{@entry.created}}</div>
+        </div>
+        <div class="card-footer">
+            <a href="javascript:removeEntry('{{strtolower(@POST.email)}}')" class="btn btn-primary">Delete Entry</a>
+        </div>
+    </div>
+</check>
+
+<script>
+    function removeEntry(address) {
+        var checkstr = confirm('Are you sure, that you want to delete the Blacklist entry of ' + address + '?');
+        if (checkstr == true) {
+            $.redirectPost('/{{@ADMINURL}}/blacklist/remove', {csrfToken: csrfToken, address: address});
+        }
+    }
+</script>

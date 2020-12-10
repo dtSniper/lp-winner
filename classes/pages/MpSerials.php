@@ -17,6 +17,7 @@ class MpSerials extends Pages {
     }
 
     public function addSerials($f3) {
+        if(!$this->checkCSRF("@home")) return;
         $email   = $this->getPostString( "email" );
         $serials = $this->getPostArray( "serials", "intval", true, true );
 

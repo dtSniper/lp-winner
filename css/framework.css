@@ -63,6 +63,38 @@ body > footer {
     border-top: 1px solid var(--darkBG);
 }
 
+.list {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+}
+
+.list__item {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-flex: 1;
+    flex: 1 0 30%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 10px;
+    text-decoration: none;
+}
+.list__item.list--full {
+    flex: 1 0 95%;
+}
+
+a.card:hover {
+    background: var(--mediumBG);
+    border: .05rem solid #555;
+}
+
 .px-1r {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
@@ -96,9 +128,19 @@ form.form-100 {
     width: 100% !important;
 }
 
+
+@media only screen and (max-width: 840px) {
+    .list__item {
+        flex: 1 0 45%;
+    }
+}
+
 @media only screen and (max-width: 600px) {
     form {
         width: 90%;
+    }
+    .list__item {
+        flex: 1 0 95%;
     }
 }
 

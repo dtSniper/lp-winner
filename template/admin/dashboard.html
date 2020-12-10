@@ -1,0 +1,38 @@
+<ul class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="{{ @PATH }}">Admin Dashboard</a>
+    </li>
+</ul>
+<div class="list admin">
+    <a href="/{{@ADMINURL}}/winners" class="list__item list--full card">
+        <div class="card-header">
+            <div class="card-title h5">Winners</div>
+            <div class="card-subtitle text-gray"></div>
+        </div>
+        <div class="card-body">Enter serial numbers and send an email to all winners!</div>
+    </a>
+
+    <a href="/{{@ADMINURL}}/serials" class="list__item card">
+        <div class="card-header">
+            <div class="card-title h5 badge" data-badge="{{@mpsCount}}">Serial Numbers</div>
+            <div class="card-subtitle text-gray">Serial Numbers & Email Combinations</div>
+        </div>
+        <div class="card-body">Search, Manage and remove serial numbers and email combinations.</div>
+    </a>
+
+    <a href="/{{@ADMINURL}}/blacklist" class="list__item card">
+        <div class="card-header">
+            <div class="card-title h5 badge" data-badge="{{@blCount}}">Blacklist</div>
+            <div class="card-subtitle text-gray">Blacklisted emails</div>
+        </div>
+        <div class="card-body">Search for an email and remove it from the blacklist</div>
+    </a>
+
+    <a href="javascript:void(0)" onclick="$.redirectPost('/{{@ADMINURL}}/logout', {csrfToken: csrfToken});" class="list__item card">
+        <div class="card-header">
+            <div class="card-title h5">Logout</div>
+            <div class="card-subtitle text-gray">Log out!</div>
+        </div>
+        <div class="card-body">Well this locks you out!</div>
+    </a>
+</div>
