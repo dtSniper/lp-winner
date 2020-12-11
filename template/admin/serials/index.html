@@ -7,3 +7,88 @@
     </li>
 </ul>
 <include href="{{ 'template/admin/serials/search.html' }}"/>
+
+<check if="{{ @serialPage['total'] > 0 }}">
+    <true>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Serial:</th>
+                    <th>Email:</th>
+                    <th>added</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <repeat group="{{ @serialPage['subset'] }}" value="{{ @serial }}">
+                    <tr>
+                        <td>{{ @serial->serial }}</td>
+                        <td>{{ @serial->email }}</td>
+                        <td>{{ @serial->created }}</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </repeat>
+            </tbody>
+        </table>
+        <check if="{{ @serialPage['count'] > 1 }}">
+            <ul class="pagination">
+                <li class="page-item{{ @serialPage['pos'] == 0 ? ' disabled':''}}">
+                    <check if="{{@serialPage['pos'] !== 0}}">
+                        <true>
+                            <a href="/{{@ADMINURL}}/serials/{{@serialPage['pos']}}{{@GET.search ? '?search='.@GET.search:''}}">Previous</a>
+                        </true>
+                        <false>
+                            <span>Previous</span>
+                        </false>
+                    </check>
+                </li>
+                <check if="{{ @serialPage['pos'] >= 3 }}">
+                    <li class="page-item">
+                        <a href="/{{@ADMINURL}}/serials/1{{@GET.search ? '?search='.@GET.search:''}}">1</a>
+                    </li>
+                </check>
+                <check if="{{ @serialPage['pos'] > 3 }}">
+                    <li class="page-item disabled">
+                        <span>...</span>
+                    </li>
+                </check>
+                <loop from="{{ @page = @serialPage['pos']-1 }}" to="{{ @page <= @serialPage['pos']+3 }}" step="{{ @page++ }}">
+                    <check if="{{ @page >= 1 && @page <= @serialPage['count'] }}">
+                        <li class="page-item{{@page == @serialPage['pos'] + 1 ? ' active':''}}">
+                            <a href="/{{@ADMINURL}}/serials/{{ @page }}{{@GET.search ? '?search='.@GET.search:''}}">{{ @page }}</a>
+                        </li>
+                    </check>
+                </loop>
+                <check if="{{ @serialPage['count'] - @serialPage['pos'] > 4 }}">
+                    <li class="page-item disabled">
+                        <span>...</span>
+                    </li>
+                </check>
+                <check if="{{ @serialPage['count'] - @serialPage['pos'] >= 4 }}">
+                    <li class="page-item">
+                        <a href="/{{@ADMINURL}}/serials/{{@serialPage['count']}}{{@GET.search ? '?search='.@GET.search:''}}">{{@serialPage['count']}}</a>
+                    </li>
+                </check>
+                <li class="page-item{{ @serialPage['pos']+1 >= @serialPage['count'] ? ' disabled':''}}">
+                    <check if="{{ @serialPage['pos']+1 < @serialPage['count']}}">
+                        <true>
+                            <a href="/{{@ADMINURL}}/serials/{{@serialPage['pos'] + 2}}{{@GET.search ? '?search='.@GET.search:''}}">Next</a>
+                        </true>
+                        <false>
+                            <span>Next</span>
+                        </false>
+                    </check>
+                </li>
+            </ul>
+        </check>
+    </true>
+    <false>
+        <div class="empty">
+            <div class="empty-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <p class="empty-title h5">We haven't found any Serial Numbers</p>
+            <p class="empty-subtitle">Change the search Parameters above!</p>
+        </div>
+    </false>
+</check>

@@ -95,6 +95,11 @@ a.card:hover {
     border: .05rem solid #555;
 }
 
+.empty {
+    background: var(--mediumBG);
+    border: .05rem solid #555;
+}
+
 .px-1r {
     padding-left: 1rem !important;
     padding-right: 1rem !important;

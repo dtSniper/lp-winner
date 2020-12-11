@@ -132,7 +132,7 @@ class Admin extends SecuredPages {
         );
 
         $serials     = new MPSerialnumber( $f3 );
-        $serialsPage = $serials->paginate( $page, 5, $filter, $options );
+        $serialsPage = $serials->paginate( $page, 50, $filter, $options );
         $f3->set("serialPage", $serialsPage);
         $f3->set( "content", \Template::instance()->render( "template/admin/serials/index.html" ) );
         echo \Template::instance()->render( "template/site.html" );
