@@ -9,7 +9,7 @@ $f3->set( "CACHE", TRUE );
 if ((float)PCRE_VERSION < 7.9) {
     trigger_error( 'PCRE version is out of date' );
 }
-$f3->set( "TEMP", "/tmp/" );
+$f3->set( "TEMP", "tmp/" );
 $port = $f3->get( "PORT" );
 $f3->set( "FULL_URL", $f3->get( "SCHEME" ) . '://' . $f3->get( "HOST" ) . ($port && !in_array( $port, [80, 443] ) ? (':' . $port) : '') . $f3->get( "BASE" ) );
 
