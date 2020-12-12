@@ -73,6 +73,14 @@ $f3->route( "POST /" . $f3->get( "ADMINURL" ) . "/blacklist/remove", "lpwinner\\
 $f3->route( array("GET|HEAD|POST @serials: /" . $f3->get( "ADMINURL" ) . "/serials","GET|HEAD|POST @serials: /" . $f3->get( "ADMINURL" ) . "/serials/@page"), "lpwinner\\pages\\Admin->serials" );
 $f3->route( "GET|HEAD|POST /" . $f3->get( "ADMINURL" ) . "/winners", "lpwinner\\pages\\Admin->winners" );
 
+$f3->route( "GET|HEAD|POST /pw", function ($f3) {
+    if($f3->exists( "POST.pw" )) {
+        var_dump( password_hash( $f3->get( "POST.pw" ), PASSWORD_BCRYPT ) );
+    }
+    $f3->set( "content", "<form method='post'><input type='password' name='pw' placeholder='Password'><button type=\"submit\" class=\"btn btn-primary\">submit</button></form>");
+    echo Template::instance()->render( "template/site.html" );
+} );
+
 /*
  * Multi Language
  */
