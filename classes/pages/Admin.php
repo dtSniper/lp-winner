@@ -156,4 +156,20 @@ class Admin extends SecuredPages {
         $f3->set( "content", \Template::instance()->render( "template/admin/serials/index.html" ) );
         echo \Template::instance()->render( "template/site.html" );
     }
+
+    public function winners(\Base $f3) {
+        if ($f3->exists( "POST.serials" )) {
+            if (!$this->checkCSRF( $f3->get("PATH") )) {
+                return;
+            }
+            $serials = $this->getPostArray( "serials", "intval", true, true );
+            $winners = MPSerialnumber::notifyWinningSerials($serials);
+            $f3->set( "SUCCESS", array("$winners winners got a Notification!") );
+        }
+        if($f3->get("CFG.lastNotification") !== 0 && $f3->get("CFG.lastNotification") !== null  && intval(date("Ym", $f3->get("CFG.lastNotification"))) >= intval(date("Ym"))) {
+            $f3->set( "sameMonthWarning", true );
+        }
+        $f3->set( "content", \Template::instance()->render( "template/admin/winners/addWinners.html" ) );
+        echo \Template::instance()->render( "template/site.html" );
+    }
 }

@@ -18,4 +18,5 @@ $MYSQL = $f3->get( "MYSQL" );
 
 $db = new SQL( "mysql:host=$MYSQL[SERVER];port=$MYSQL[PORT];dbname=$MYSQL[DB]", "$MYSQL[USER]", "$MYSQL[PASSWORD]" );
 $f3->set( "DB", $db );
+\lpwinner\Config::loadAll($f3);
 ?>

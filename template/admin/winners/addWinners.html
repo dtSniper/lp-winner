@@ -1,0 +1,28 @@
+<check if="{{@sameMonthWarning}}">
+    <div class="toast toast-warning">
+        <button class="btn btn-clear float-right"></button>
+        <div class="h3">WARNING! <i class="fas fa-info"></i></div>
+        <p class="msgframe__text">
+            Last Notification was send within this month! Please make sure we aren't sending unnecessary Notifications!<br><br>
+            <b>Last Notification</b>: {{date("d. F Y", @CFG.lastNotification)}}
+        </p>
+    </div>
+</check>
+<form method="post" id="serialAdd">
+    <div id="serials" class="mb-1"></div>
+    <div class="input-group mb-2"><span class="input-group-addon addon-lg">{{@site.serials.mpSerial}}:</span>
+        <input class="form-input input-lg allowMpPaste" type="text" placeholder="Serial number" id="newSerial">
+        <button class="btn btn-primary input-group-btn btn-lg" id="addSerialButton">{{@site.serials.add}}</button>
+    </div>
+    <input type="hidden" name="csrfToken" value="{{@SESSION.csrf}}">
+    <button type="submit" class="btn btn-primary">Notify Winners!</button>
+</form>
+<div class="hide" id="chipHtml" style="display: none">
+    <span class="chip">
+        <input type="hidden" name="serials[]" value="[[number]]">
+          [[number]]
+          <a href="javascript:void(0)" onclick="$(this).parent().remove()" class="btn btn-clear" aria-label="Close" role="button"></a>
+    </span>
+</div>
+
+{{ \lpwinner\JSLoader::addScript('serials.js') }}

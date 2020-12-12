@@ -1,6 +1,5 @@
 $('#newSerial').on('keypress', function (e) {
     var keyCode = e.keyCode || e.which;
-    console.log(keyCode);
     if (keyCode === 13 || keyCode === 32 || keyCode === 44) {
         e.preventDefault();
         addNewSerial();
@@ -16,6 +15,22 @@ $('#addSerialButton').on('click', function (e) {
 
 function addNewSerial() {
     var serial = $('#newSerial').val();
+    if(typeof serial === "string" && $('#newSerial').hasClass('allowMpPaste')) {
+        serial = serial.replace(/•/g, '');
+        var serials = serial.split(' ').filter(function (el) {
+            return el != null && el !== "";
+        });
+        serials.forEach( function (value) {
+           addChip(value);
+        });
+        return;
+    }
+
+    if(serial.length === 0) return;
+    addChip(serial);
+}
+
+function addChip(serial) {
     if(serial.length === 0) return;
     var html = $('#chipHtml').html();
     html = html.replace(/\[\[number\]\]/g, serial);
