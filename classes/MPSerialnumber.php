@@ -59,4 +59,12 @@ class MPSerialnumber extends \DB\SQL\Mapper {
         return true;
     }
 
+    public static function getById(int $id): ?self {
+        $mps = new self( \Base::instance() );
+        if (!$mps->load( array("id = ?", $id) )) {
+            return null;
+        }
+        return $mps;
+    }
+
 }

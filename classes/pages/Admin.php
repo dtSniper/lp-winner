@@ -111,6 +111,25 @@ class Admin extends SecuredPages {
     }
 
     public function serials(\Base $f3, $params) {
+        if ($f3->exists( "POST.removeId" )) {
+            if (!$this->checkCSRF( $f3->get("PATH") )) {
+                return;
+            }
+            $serialId = $this->getPostInt("removeId", true, true);
+            if($serialId === null) {
+                $this->addStandardError("tryAgain");
+                $f3->reroute($f3->get("PATH"));
+                return;
+            }
+            $entry = MPSerialnumber::getById($serialId);
+            if($entry === null) {
+                $this->addStandardError("tryAgain");
+                $f3->reroute($f3->get("PATH"));
+                return;
+            }
+            $entry->erase();
+            $f3->set( "SUCCESS", array($f3->get("successmsg.removed")) );
+        }
         $page = 1;
         if (isset( $params['page'] )) {
             $page = intval( $params['page'] );

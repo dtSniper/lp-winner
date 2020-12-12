@@ -70,7 +70,7 @@ $f3->route( "GET|HEAD|POST @adminLogin: /" . $f3->get( "ADMINURL" ) . "/login", 
 $f3->route( "POST @adminLogout: /" . $f3->get( "ADMINURL" ) . "/logout", "lpwinner\\pages\\Admin->logout" );
 $f3->route( "GET|HEAD|POST @adminBlacklist: /" . $f3->get( "ADMINURL" ) . "/blacklist", "lpwinner\\pages\\Admin->blacklist" );
 $f3->route( "POST /" . $f3->get( "ADMINURL" ) . "/blacklist/remove", "lpwinner\\pages\\Admin->removeBlacklist" );
-$f3->route( array("GET|HEAD @serials: /" . $f3->get( "ADMINURL" ) . "/serials","GET|HEAD @serials: /" . $f3->get( "ADMINURL" ) . "/serials/@page"), "lpwinner\\pages\\Admin->serials" );
+$f3->route( array("GET|HEAD|POST @serials: /" . $f3->get( "ADMINURL" ) . "/serials","GET|HEAD|POST @serials: /" . $f3->get( "ADMINURL" ) . "/serials/@page"), "lpwinner\\pages\\Admin->serials" );
 
 /*
  * Multi Language

@@ -25,7 +25,9 @@
                         <td>{{ @serial->serial }}</td>
                         <td>{{ @serial->email }}</td>
                         <td>{{ @serial->created }}</td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <a class="tooltip" data-tooltip="Remove Entry" href="javascript:removeSerial({{ @serial->id }}, '{{ @serial->email }}', '{{ @serial->serial }}')"><i class="fas fa-trash-alt"></i></a>
+                        </td>
                     </tr>
                 </repeat>
             </tbody>
@@ -92,3 +94,12 @@
         </div>
     </false>
 </check>
+
+<script>
+    function removeSerial(id, address, serial) {
+        var checkstr = confirm('Are you sure, that you want to delete the serial number "' + serial + '" entry of ' + address + '?');
+        if (checkstr == true) {
+            $.redirectPost('{{@PATH}}', {csrfToken: csrfToken, removeId: id});
+        }
+    }
+</script>
