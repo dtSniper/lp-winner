@@ -149,7 +149,7 @@ class MPSerialnumber extends \DB\SQL\Mapper {
         );
         if(is_array($results) && count($results) > 1) {
             foreach ($results as $looser) {
-                \lpwinner\Utility::sendEmail( $f3, $f3->get( "MAIL_TO" ), '"Lockpick Winner" <' . $f3->get( "MAIL_TO" ) . '>', $looser['email'], $looser['email'], "[LOST]Multipick Giveaway Notification", $textToBeSend );
+                \lpwinner\Utility::sendEmail( $f3, $f3->get( "MAIL_TO" ), '"Lockpick Winner" <' . $f3->get( "MAIL_TO" ) . '>', $looser['email'], $looser['email'], "[NOT WON]Multipick Giveaway Notification", $textToBeSend );
             }
         }
     }
