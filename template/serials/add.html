@@ -9,7 +9,7 @@
     </div>
     <label class="form-switch">
         <input type="checkbox" name="dataProtection" required>
-        <i class="form-icon"></i> {{@site.serials.privacy,@ML->alias('privacy') | format,raw}}
+        <i class="form-icon"></i> {{@site.serials.privacy, "/privacy" | format,raw}}
     </label>
     <input type="hidden" name="csrfToken" value="{{@SESSION.csrf}}">
     <button type="submit" class="btn btn-primary">{{@site.serials.button}}</button>

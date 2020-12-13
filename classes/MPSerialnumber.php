@@ -91,26 +91,27 @@ class MPSerialnumber extends \DB\SQL\Mapper {
         $filter = array_merge( array(implode( ' OR ', $query )), $parameter );
         $mps    = new self( $f3 );
         if (!$mps->load( $filter, array('order' => 'email ASC') )) {
-            echo "not load?!";
             return 0;
         }
         $serials = $mps->query;
 
-        $winners    = 0;
-        $email      = null;
-        $winNumbers = array();
+        $winners     = 0;
+        $winnerMails = array();
+        $email       = null;
+        $winNumbers  = array();
         foreach ($serials as $serial) {
             if ($email === null || strtolower( $email ) !== strtolower( $serial->email )) {
                 if ($email !== null) {
-                    self::sendNotification( $f3, $email, $winNumbers );
+                    self::sendWinNotification( $f3, $email, $winNumbers );
                     $winNumbers = array();
                 }
                 $winners++;
-                $email = strtolower( $serial->email );
+                $email         = strtolower( $serial->email );
+                $winnerMails[] = strtolower( $serial->email );
             }
             $winNumbers[] = $serial->serial;
         }
-        self::sendNotification( $f3, $email, $winNumbers );
+        self::sendWinNotification( $f3, $email, $winNumbers );
 
         $totalWinnings = $f3->get( "CFG.totalWinnings" );
         $totalWinnings += count( $serials );
@@ -120,13 +121,36 @@ class MPSerialnumber extends \DB\SQL\Mapper {
         Config::saveValue( $f3, "lastWinnings", count( $serials ), Config::TYPE_INT );
         Config::saveValue( $f3, "lastWinners", $winners, Config::TYPE_INT );
         Config::saveValue( $f3, "totalWinners", $totalWinners, Config::TYPE_INT );
+        self::sendLostNotification($f3, $winnerMails);
         return $winners;
     }
 
-    private static function sendNotification($f3, string $address, array $serials): bool {
+    private static function sendWinNotification($f3, string $address, array $serials): bool {
         $f3->set( "numbers", $serials );
         $textToBeSend = \Template::instance()->render( "template/email/notification.html" );
-        \lpwinner\Utility::sendEmail( $f3, $f3->get( "MAIL_TO" ), '"Lockpick Winner" <' . $f3->get( "MAIL_TO" ) . '>', $address, $address, "Multipick Giveaway Notification", $textToBeSend );
+        \lpwinner\Utility::sendEmail( $f3, $f3->get( "MAIL_TO" ), '"Lockpick Winner" <' . $f3->get( "MAIL_TO" ) . '>', $address, $address, "[WIN]Multipick Giveaway Notification", $textToBeSend );
         return true;
+    }
+
+    private static function sendLostNotification(\Base $f3, array $winners) {
+        $textToBeSend = \Template::instance()->render( "template/email/lostNotification.html" );
+        $query     = array();
+        $parameter = array();
+        foreach ($winners as $winner) {
+            if ($winner === null) {
+                continue;
+            }
+            $query[]     = "email != ?";
+            $parameter[] = $winner;
+        }
+        $results = $f3->get("DB")->exec(
+            "SELECT DISTINCT email FROM mp_serialnumbers WHERE " . implode( ' AND ', $query ),
+            $parameter
+        );
+        if(is_array($results) && count($results) > 1) {
+            foreach ($results as $looser) {
+                \lpwinner\Utility::sendEmail( $f3, $f3->get( "MAIL_TO" ), '"Lockpick Winner" <' . $f3->get( "MAIL_TO" ) . '>', $looser['email'], $looser['email'], "[LOST]Multipick Giveaway Notification", $textToBeSend );
+            }
+        }
     }
 }
