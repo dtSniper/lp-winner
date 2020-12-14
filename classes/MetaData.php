@@ -9,13 +9,13 @@ namespace lpwinner;
 
 
 class MetaData {
-    public static $title = "Lockpick Winner";
+    public static $title = "multipick.challenge-lock.com";
     public static $pageTitle = "";
     public static $keywords = "";
     public static $description = "";
     public static $robots = "index,follow";
 
-    public static $twitter_user = "";
+    public static $twitter_user = "@Unknown";
     public static $twitter_card = "summary";
     public static $fb_id;
 
