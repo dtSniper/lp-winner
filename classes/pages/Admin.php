@@ -138,8 +138,9 @@ class Admin extends SecuredPages {
             }
         }
         $page--;
-        $filter = array();
+        $filter = null;
         if ($this->f3->exists( "GET.search" )) {
+            $filter = array();
             $search = trim( strip_tags( $this->f3->get( "GET.search" ) ) );
             if (!empty( $search )) {
                 $search = "%$search%";

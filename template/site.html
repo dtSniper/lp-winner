@@ -4,16 +4,16 @@
 <body class="container-fluid off-canvas">
     <script src="/js/jquery-3.5.1.min.js"></script>
     {{ \lpwinner\JSLoader::addScript('main.js') }}
-    {{ \lpwinner\JSLoader::outputScripts(@jsVersions) }}
+    {{ \lpwinner\JSLoader::outputScripts() }}
     <include href="{{ 'template/navigation.html' }}" />
 
     <main class="content-full px-1r py-2">
-    <check if="{{ is_array(@ERROR_MESSAGE) }}">
+    <check if="{{ isset(@ERROR_MESSAGE) && is_array(@ERROR_MESSAGE) }}">
         <repeat group="{{ @ERROR_MESSAGE }}" value="{{ @message }}">
             <include href="{{ 'template/messages/error_frame.html' }}" />
         </repeat>
     </check>
-    <check if="{{ is_array(@SUCCESS) }}">
+    <check if="{{ isset(@SUCCESS) && is_array(@SUCCESS) }}">
         <repeat group="{{ @SUCCESS }}" value="{{ @message }}">
             <include href="{{ 'template/messages/success_frame.html' }}" />
         </repeat>

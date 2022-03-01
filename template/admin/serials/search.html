@@ -1,6 +1,8 @@
 <form method="get" action="/{{@ADMINURL}}/serials">
     <div class="input-group">
-        <input type="text" name="search" placeholder="email address or serial number" value="{{@GET.search}}" class="form-input">
+
+
+        <input type="text" name="search" placeholder="email address or serial number" value="{{isset(@GET.search) ? @GET.search:''}}" class="form-input">
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
 </form>

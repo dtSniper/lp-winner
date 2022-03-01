@@ -2,7 +2,7 @@
 <p class="text-center">Enter the email address (sensitive), you want to check.</p>
 <form method="post">
     <div class="input-group">
-        <input type="email" name="email" placeholder="email address" value="{{@POST.email}}" class="form-input" required>
+        <input type="email" name="email" placeholder="email address" value="{{isset(@POST.email) ? @POST.email:''}}" class="form-input" required>
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
     <input type="hidden" name="csrfToken" value="{{@SESSION.csrf}}">

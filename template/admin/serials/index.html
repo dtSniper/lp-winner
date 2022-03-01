@@ -37,7 +37,7 @@
                 <li class="page-item{{ @serialPage['pos'] == 0 ? ' disabled':''}}">
                     <check if="{{@serialPage['pos'] !== 0}}">
                         <true>
-                            <a href="/{{@ADMINURL}}/serials/{{@serialPage['pos']}}{{@GET.search ? '?search='.@GET.search:''}}">Previous</a>
+                            <a href="/{{@ADMINURL}}/serials/{{@serialPage['pos']}}{{isset(@GET.search) ? '?search='.@GET.search:''}}">Previous</a>
                         </true>
                         <false>
                             <span>Previous</span>
@@ -46,7 +46,7 @@
                 </li>
                 <check if="{{ @serialPage['pos'] >= 3 }}">
                     <li class="page-item">
-                        <a href="/{{@ADMINURL}}/serials/1{{@GET.search ? '?search='.@GET.search:''}}">1</a>
+                        <a href="/{{@ADMINURL}}/serials/1{{isset(@GET.search) ? '?search='.@GET.search:''}}">1</a>
                     </li>
                 </check>
                 <check if="{{ @serialPage['pos'] > 3 }}">
@@ -57,7 +57,7 @@
                 <loop from="{{ @page = @serialPage['pos']-1 }}" to="{{ @page <= @serialPage['pos']+3 }}" step="{{ @page++ }}">
                     <check if="{{ @page >= 1 && @page <= @serialPage['count'] }}">
                         <li class="page-item{{@page == @serialPage['pos'] + 1 ? ' active':''}}">
-                            <a href="/{{@ADMINURL}}/serials/{{ @page }}{{@GET.search ? '?search='.@GET.search:''}}">{{ @page }}</a>
+                            <a href="/{{@ADMINURL}}/serials/{{ @page }}{{isset(@GET.search) ? '?search='.@GET.search:''}}">{{ @page }}</a>
                         </li>
                     </check>
                 </loop>
@@ -68,13 +68,13 @@
                 </check>
                 <check if="{{ @serialPage['count'] - @serialPage['pos'] >= 4 }}">
                     <li class="page-item">
-                        <a href="/{{@ADMINURL}}/serials/{{@serialPage['count']}}{{@GET.search ? '?search='.@GET.search:''}}">{{@serialPage['count']}}</a>
+                        <a href="/{{@ADMINURL}}/serials/{{@serialPage['count']}}{{isset(@GET.search) ? '?search='.@GET.search:''}}">{{@serialPage['count']}}</a>
                     </li>
                 </check>
                 <li class="page-item{{ @serialPage['pos']+1 >= @serialPage['count'] ? ' disabled':''}}">
                     <check if="{{ @serialPage['pos']+1 < @serialPage['count']}}">
                         <true>
-                            <a href="/{{@ADMINURL}}/serials/{{@serialPage['pos'] + 2}}{{@GET.search ? '?search='.@GET.search:''}}">Next</a>
+                            <a href="/{{@ADMINURL}}/serials/{{@serialPage['pos'] + 2}}{{isset(@GET.search) ? '?search='.@GET.search:''}}">Next</a>
                         </true>
                         <false>
                             <span>Next</span>

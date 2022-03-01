@@ -8,7 +8,7 @@
 </ul>
 <include href="{{ 'template/admin/blacklist/search.html' }}"/>
 
-<check if="{{@entry}}">
+<check if="{{isset(@entry)}}">
     <div class="card mt-2">
         <div class="card-header">
             <div class="card-title h5">{{strtolower(@POST.email)}}</div>

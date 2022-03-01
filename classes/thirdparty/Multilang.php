@@ -59,7 +59,7 @@ class Multilang extends \Prefab {
     function alias($name,$params=NULL,$lang=NULL) {
         if (in_array($name,$this->global_aliases))
             return $this->f3->alias($name,$params);
-        if (!is_array($params))
+        if ($params !== null && !is_array($params))
             $params =$this->f3->parse($params);
         if (!$lang)
             $lang =$this->current;

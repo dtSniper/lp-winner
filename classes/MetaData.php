@@ -90,44 +90,44 @@ class MetaData {
         $metaString = '';
 
         // SEO META
-        if (strlen( self::$description ) != 0) {
+        if (isset(self::$description) && strlen( self::$description ) != 0) {
             $metaString .= '<meta name="description" content="' . self::$description . '">';
         }
-        if (strlen( self::$keywords ) != 0) {
+        if (isset(self::$keywords) && strlen( self::$keywords ) != 0) {
             $metaString .= '<meta name="keywords" content="' . self::$keywords . '">';
         }
-        if (strlen( self::$robots ) != 0) {
+        if (isset(self::$robots) && strlen( self::$robots ) != 0) {
             $metaString .= '<meta name="robots" content="' . self::$robots . '">';
         }
 
         //FACEBOOK - TWITTER IDs
-        if (strlen( self::$twitter_user ) != 0) {
+        if (isset(self::$twitter_user) && strlen( self::$twitter_user ) != 0) {
             $metaString .= '<meta name="twitter:site" content="' . self::$twitter_user . '">';
             $metaString .= '<meta name="twitter:creator" content="' . self::$twitter_user . '">';
         }
-        if (strlen( self::$fb_id ) != 0) {
+        if (isset(self::$fb_id) && strlen( self::$fb_id ) != 0) {
             $metaString .= '<meta name="fb:app_id" content="' . self::$fb_id . '">';
         }
 
         //SHARING INFO
         $metaString .= '<meta property="og:site_name" content="Mapban.gg">';
         $metaString .= '<meta property="og:locale" content="' . $ml->current . '">';
-        if (strlen( self::$social_Data['title'] ) != 0) {
+        if (isset(self::$social_Data['title']) && strlen( self::$social_Data['title'] ) != 0) {
             $metaString .= '<meta name="twitter:card" content="' . self::$twitter_card . '">';
             $metaString .= '<meta name="twitter:title" content="' . self::$social_Data['title'] . '">';
             $metaString .= '<meta property="og:title" content="' . self::$social_Data['title'] . '">';
             $uri_parts  = explode( '?', $_SERVER['REQUEST_URI'], 2 );
             $metaString .= '<meta property="og:url" content="https://' . $_SERVER["HTTP_HOST"] . $uri_parts[0] . '">';
         }
-        if (strlen( self::$social_Data['description'] ) != 0) {
+        if (isset(self::$social_Data['description']) && strlen( self::$social_Data['description'] ) != 0) {
             $metaString .= '<meta name="twitter:description" content="' . self::$social_Data['description'] . '">';
             $metaString .= '<meta property="og:description" content="' . self::$social_Data['description'] . '">';
         }
-        if (strlen( self::$social_Data['image'] ) != 0) {
+        if (isset(self::$social_Data['image']) && strlen( self::$social_Data['image'] ) != 0) {
             $metaString .= '<meta name="twitter:image" content="https://' . $_SERVER["HTTP_HOST"] . self::$social_Data['image'] . '">';
             $metaString .= '<meta property="og:image" content="https://' . $_SERVER["HTTP_HOST"] . self::$social_Data['image'] . '">';
         }
-        if (strlen( self::$social_Data['imageAlt'] ) != 0) {
+        if (isset(self::$social_Data['imageAlt']) && strlen( self::$social_Data['imageAlt'] ) != 0) {
             $metaString .= '<meta name="twitter:image:alt" content="' . self::$social_Data['imageAlt'] . '">';
             $metaString .= '<meta property="og:image:alt" content="' . self::$social_Data['imageAlt'] . '">';
         }

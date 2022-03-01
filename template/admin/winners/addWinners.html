@@ -6,7 +6,7 @@
         <a href="{{ @PATH }}">Notify Winners</a>
     </li>
 </ul>
-<check if="{{@sameMonthWarning}}">
+<check if="{{isset(@sameMonthWarning)}}">
     <div class="toast toast-warning">
         <button class="btn btn-clear float-right"></button>
         <div class="h3">WARNING! <i class="fas fa-info"></i></div>

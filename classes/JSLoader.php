@@ -27,11 +27,13 @@ class JSLoader {
         return self::$neededScripts;
     }
 
-    public static function outputScripts($jsVersions) {
+    public static function outputScripts(array $jsVersions = null) {
         $html = '';
         foreach (self::$neededScripts as $value) {
-            if (!empty( $jsVersions[$value] )) {
-                $value = $jsVersions[$value];
+            if ($jsVersions !== null) {
+                if (!empty( $jsVersions[$value] )) {
+                    $value = $jsVersions[$value];
+                }
             }
             $html .= '<script src="/js/' . $value . '" defer></script>';
         }
